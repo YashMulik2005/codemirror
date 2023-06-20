@@ -1,0 +1,45 @@
+import React, { useCallback, useEffect, useState } from 'react'
+import CodeMirror from '@uiw/react-codemirror';
+// import {basicSetup} from 'codemirror/dist/index.js';
+// import '@uiw/react-codemirror/keymap/sublime';
+// import '@uiw/react-codemirror/theme/dracula.css';
+// import { dracula } from '@uiw/codemirror-theme-dracula'
+// import { eclipse } from '@uiw/codemirror-theme-eclipse'
+
+function Texteditor() {
+    const [editortheme, seteditortheme] = useState("dracula")
+    const [code, setcode] = useState("")
+    const ChangeEditorTheme = () => {
+        if (editortheme == "dracula") {
+            seteditortheme("eclipse")
+        }
+        else {
+            seteditortheme("dracula")
+        }
+    }
+    const getCode = React.useCallback((value, viewUpdate) => {
+        setcode(value)
+    }, [])
+    useEffect(() => {
+
+    }, [editortheme])
+
+    return (
+        <div className=' border-2 w-1/2'>
+            <CodeMirror
+
+                options={{
+                    mode: "text/x-c++src",
+                    keyMap: "sublime",
+                }}
+                theme={editortheme}
+                height='400px'
+                width='100%'
+                onChange={getCode}
+            />
+            <button onClick={ChangeEditorTheme}>theme</button>
+        </div>
+    )
+}
+
+export default Texteditor
